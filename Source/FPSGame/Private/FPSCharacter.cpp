@@ -62,7 +62,7 @@ void AFPSCharacter::Fire()
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 		// spawn the projectile at the muzzle
-		GetWorld()->SpawnActor<AFPSProjectile>(ProjectileClass, MuzzleLocation, MuzzleRotation, ActorSpawnParams);
+		GetWorld()->SpawnActor<AFPSProjectile>(ProjectileClass, (MuzzleLocation - 0.1f), MuzzleRotation, ActorSpawnParams);
 	}
 
 	// try and play the sound if specified

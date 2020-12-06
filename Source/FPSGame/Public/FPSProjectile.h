@@ -18,19 +18,19 @@ class AFPSProjectile : public AActor
 
 protected:
 
-	/** Sphere collision component */
+	//Sphere collision component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Projectile")
 	USphereComponent* CollisionComp;
 
-	/** Projectile movement component */
+	//Projectile movement component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
 	UProjectileMovementComponent* ProjectileMovement;
 
 public:
 
-	AFPSProjectile();
+	AFPSProjectile(); //Constructor
 
-	/** called when projectile hits something */
+	//Called when the projectile hits something
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
