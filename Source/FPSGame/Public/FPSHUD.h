@@ -15,14 +15,14 @@ class AFPSHUD : public AHUD
 
 protected:
 
-	/** Crosshair asset pointer */
+	//Crosshair asset pointer
 	UTexture2D* CrosshairTex;
 
 public:
 
 	AFPSHUD();
 
-	/** Primary draw call for the HUD */
+	//Primary draw call for the HUD
 	virtual void DrawHUD() override;
 
 };

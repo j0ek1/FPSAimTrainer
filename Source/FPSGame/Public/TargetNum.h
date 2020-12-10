@@ -1,31 +1,22 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "AimCube.generated.h"
+#include "TargetNum.generated.h"
 
 UCLASS()
-class AAimCube : public AActor
+class ATargetNum : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 
-	AAimCube(); //Constructor
+	ATargetNum(); //Constructor
 
 	UFUNCTION() //Function for when the cube gets hit
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-
-	UFUNCTION() 
-	void Target1();
-	UFUNCTION()
-	void Target2(int x);
-	UFUNCTION()
-	void Target3(int x, int y);
-	UFUNCTION()
-	void Target4(int x, int y, int z);
 
 protected:
 	// Called when the game starts or when spawned
@@ -35,7 +26,6 @@ protected:
 	UStaticMeshComponent* StaticMesh;
 
 public:	
-
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
