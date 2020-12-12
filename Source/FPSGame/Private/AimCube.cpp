@@ -8,6 +8,9 @@
 TArray<AActor*> aimCubes; //Global array for all of the aim cubes
 extern int numberOfTargets;
 bool hasStarted = false; //Bool which shows if the player has started the training or not
+bool canStartTimer = true;
+bool canShoot = false;
+FTimerHandle CourseTimer;
 
 // Sets default values
 AAimCube::AAimCube()
@@ -30,9 +33,13 @@ void AAimCube::BeginPlay()
 
 void AAimCube::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) //When the cube gets hit
 {
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL)) //If we hit an actor that is not itself
+	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && (canShoot)) //If we hit an actor that is not itself
 	{
 		hasStarted = true;
+		if (canStartTimer)
+		{
+			AAimCube::TimerHandle();
+		}
 
 		int x;
 		FVector Scale;
@@ -45,8 +52,22 @@ void AAimCube::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiv
 	}
 }
 
+void AAimCube::TimerHandle() //Handles starting the timer for the course
+{
+	canStartTimer = false;
+	GetWorld()->GetTimerManager().SetTimer(CourseTimer, this, &AAimCube::TimerReset, 20.f, false);
+}
+
+void AAimCube::TimerReset()
+{
+	hasStarted = false;
+	canShoot = false;
+	GetWorldTimerManager().ClearTimer(CourseTimer);
+}
+
 void AAimCube::Target1()
 {
+	canShoot = true;
 	for (int i = 0; i < 27; i++)
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
@@ -56,6 +77,7 @@ void AAimCube::Target1()
 
 void AAimCube::Target2(int x)
 {
+	canShoot = true;
 	for (int i = 0; i < 27; i++)
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
@@ -67,6 +89,7 @@ void AAimCube::Target2(int x)
 
 void AAimCube::Target3(int x, int y)
 {
+	canShoot = true;
 	for (int i = 0; i < 27; i++)
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
@@ -78,6 +101,7 @@ void AAimCube::Target3(int x, int y)
 
 void AAimCube::Target4(int x, int y, int z)
 {
+	canShoot = true;
 	for (int i = 0; i < 27; i++)
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));

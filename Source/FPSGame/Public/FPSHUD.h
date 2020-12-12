@@ -25,5 +25,7 @@ public:
 	//Primary draw call for the HUD
 	virtual void DrawHUD() override;
 
+	virtual void Tick(float DeltaTime) override;
+
 };
 

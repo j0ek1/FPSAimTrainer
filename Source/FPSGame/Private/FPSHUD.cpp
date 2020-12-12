@@ -6,6 +6,7 @@
 #include "TextureResource.h"
 #include "CanvasItem.h"
 #include "UObject/ConstructorHelpers.h"
+#include "GameFramework/HUD.h"
 
 AFPSHUD::AFPSHUD()
 {
@@ -31,4 +32,17 @@ void AFPSHUD::DrawHUD()
 	FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
 	TileItem.BlendMode = SE_BLEND_Translucent;
 	Canvas->DrawItem( TileItem );
+
+	float time = 20.f;
+	FString test = FString::SanitizeFloat(time); //put this into event tick to update the float time along with the float -= deltatime
+	UFont* DEF = NULL;
+	//Draw timer onto screen
+	DrawText(test, FColor::White, 20.f, 20.f, DEF, 4.f, false);
+}
+
+void AFPSHUD::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+
 }
