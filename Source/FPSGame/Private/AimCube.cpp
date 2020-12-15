@@ -7,10 +7,11 @@
 
 TArray<AActor*> aimCubes; //Global array for all of the aim cubes
 extern int numberOfTargets;
-bool hasStarted = false; //Bool which shows if the player has started the training or not
+bool hasStarted = false; //Bool which shows if the player has started training or not
 bool canStartTimer = true;
 bool canShoot = false;
 FTimerHandle CourseTimer;
+int score = 0;
 
 // Sets default values
 AAimCube::AAimCube()
@@ -36,6 +37,7 @@ void AAimCube::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiv
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && (canShoot)) //If we hit an actor that is not itself
 	{
 		hasStarted = true;
+		score++;
 		if (canStartTimer)
 		{
 			AAimCube::TimerHandle();
@@ -60,15 +62,21 @@ void AAimCube::TimerHandle() //Handles starting the timer for the course
 
 void AAimCube::TimerReset()
 {
-	hasStarted = false;
 	canShoot = false;
+	hasStarted = false;
+	for (int i = 0; i < 27; i++)
+	{
+		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
+	}
 	GetWorldTimerManager().ClearTimer(CourseTimer);
+	canStartTimer = true;
 }
 
 void AAimCube::Target1()
 {
 	canShoot = true;
-	for (int i = 0; i < 27; i++)
+	score = 0;
+	for (int i = 0; i < 27; i++) //Clearing the wall first
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
 	}
@@ -78,6 +86,7 @@ void AAimCube::Target1()
 void AAimCube::Target2(int x)
 {
 	canShoot = true;
+	score = 0;
 	for (int i = 0; i < 27; i++)
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
@@ -90,6 +99,7 @@ void AAimCube::Target2(int x)
 void AAimCube::Target3(int x, int y)
 {
 	canShoot = true;
+	score = 0;
 	for (int i = 0; i < 27; i++)
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
@@ -102,6 +112,7 @@ void AAimCube::Target3(int x, int y)
 void AAimCube::Target4(int x, int y, int z)
 {
 	canShoot = true;
+	score = 0;
 	for (int i = 0; i < 27; i++)
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
