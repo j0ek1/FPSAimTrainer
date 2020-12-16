@@ -12,6 +12,8 @@ bool canStartTimer = true;
 bool canShoot = false;
 FTimerHandle CourseTimer;
 int score = 0;
+int targetsHit = 0;
+extern int targetsMiss;
 
 // Sets default values
 AAimCube::AAimCube()
@@ -37,7 +39,8 @@ void AAimCube::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiv
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && (canShoot)) //If we hit an actor that is not itself
 	{
 		hasStarted = true;
-		score++;
+		score = score + 3;
+		targetsHit++;
 		if (canStartTimer)
 		{
 			AAimCube::TimerHandle();
@@ -74,50 +77,58 @@ void AAimCube::TimerReset()
 
 void AAimCube::Target1()
 {
-	canShoot = true;
+	canShoot = true; //Reset values
+	targetsHit = 0;
+	targetsMiss = 0;
 	score = 0;
-	for (int i = 0; i < 27; i++) //Clearing the wall first
+	for (int i = 0; i < 27; i++) //Clear the wall
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
 	}
-	aimCubes[13]->SetActorScale3D(FVector(1.f, 1.f, 1.f)); //Set one cube to be shown
+	aimCubes[13]->SetActorScale3D(FVector(1.f, 1.f, 1.f)); //Display one cube
 }
 
 void AAimCube::Target2(int x)
 {
-	canShoot = true;
+	canShoot = true; //Reset values
+	targetsHit = 0;
+	targetsMiss = 0;
 	score = 0;
-	for (int i = 0; i < 27; i++)
+	for (int i = 0; i < 27; i++) //Clear the wall
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
 	}
-	aimCubes[13]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
+	aimCubes[13]->SetActorScale3D(FVector(1.f, 1.f, 1.f)); //Display two cubes
 	aimCubes[x]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
 	
 }
 
 void AAimCube::Target3(int x, int y)
 {
-	canShoot = true;
+	canShoot = true; //Reset values
+	targetsHit = 0;
+	targetsMiss = 0;
 	score = 0;
-	for (int i = 0; i < 27; i++)
+	for (int i = 0; i < 27; i++) //Clear the wall
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
 	}
-	aimCubes[13]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
+	aimCubes[13]->SetActorScale3D(FVector(1.f, 1.f, 1.f)); //Display three cubes
 	aimCubes[x]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
 	aimCubes[y]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
 }
 
 void AAimCube::Target4(int x, int y, int z)
 {
-	canShoot = true;
+	canShoot = true; //Reset values
+	targetsHit = 0;
+	targetsMiss = 0;
 	score = 0;
-	for (int i = 0; i < 27; i++)
+	for (int i = 0; i < 27; i++) //Clear the wall
 	{
 		aimCubes[i]->SetActorScale3D(FVector(.1f, .1f, .1f));
 	}
-	aimCubes[13]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
+	aimCubes[13]->SetActorScale3D(FVector(1.f, 1.f, 1.f)); //Display four cubes
 	aimCubes[x]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
 	aimCubes[y]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
 	aimCubes[z]->SetActorScale3D(FVector(1.f, 1.f, 1.f));

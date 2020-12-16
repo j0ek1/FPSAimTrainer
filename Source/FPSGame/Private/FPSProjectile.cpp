@@ -4,13 +4,16 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 
+extern int score;
+extern bool hasStarted;
+int targetsMiss = 0;
+
 AFPSProjectile::AFPSProjectile() 
 {
-	//Use a sphere as a simple collision representation
-	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
+	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp")); //Setting sphere component values
 	CollisionComp->InitSphereRadius(0.05f);
 	CollisionComp->SetCollisionProfileName("Projectile");
-	CollisionComp->OnComponentHit.AddDynamic(this, &AFPSProjectile::OnHit);	// set up a notification for when this component hits something blocking
+	CollisionComp->OnComponentHit.AddDynamic(this, &AFPSProjectile::OnHit);	//Setting up the on hit detection function
 
 	//Set that players can't walk on it
 	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
@@ -42,6 +45,15 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 		Scale *= 0.1f;
 		OtherComp->SetWorldScale3D(Scale);
 
+		Destroy();
+	}
+	if (!(OtherComp->IsSimulatingPhysics()) && hasStarted) //If they hit the wall (not a cube)
+	{
+		score--;
+		targetsMiss++;
+	}
+	if (OtherActor == this) //If the bullet hits itself, destroy
+	{
 		Destroy();
 	}
 }
