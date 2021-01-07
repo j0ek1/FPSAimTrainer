@@ -1,5 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
 #include "TargetNum.h"
 #include "Classes/Components/StaticMeshComponent.h"
@@ -12,17 +11,16 @@ int numberOfTargets = 1; //Players choice of number of targets
 extern bool hasStarted;
 AAimCube* func;
 
-// Sets default values
+//Sets default values
 ATargetNum::ATargetNum()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMeshComponent"); //Creating static mesh component for the cubes
 	StaticMesh->OnComponentHit.AddDynamic(this, &ATargetNum::OnHit);
 }
 
-// Called when the game starts or when spawned
+// Called when the game starts
 void ATargetNum::BeginPlay()
 {
 	Super::BeginPlay();

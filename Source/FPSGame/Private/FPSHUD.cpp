@@ -48,17 +48,17 @@ void AFPSHUD::DrawHUD()
 	FString scoreText = "Score:";
 	DrawText(timeText, FColor::White, 25.f, 20.f, arial, .25f, false); //Drawing the timer on the HUD
 	DrawText(timeValue, FColor::White, 90.f, 20.f, arial, .25f, false);
-	DrawText(scoreText, FColor::White, 1100.f, 20.f, arial, .25f, false); //Drawing the score on the HUD
-	DrawText(scoreValue, FColor::White, 1175.f, 20.f, arial, .25f, false);
+	DrawText(scoreText, FColor::White, 1080.f, 20.f, arial, .25f, false); //Drawing the score on the HUD
+	DrawText(scoreValue, FColor::White, 1155.f, 20.f, arial, .25f, false);
 
 	FString hitValue = FString::FromInt(targetsHit); //Converting the targets hit to a string to be displayed
 	FString hitText = "Targets hit:";
 	FString missValue = FString::FromInt(targetsMiss); //Converting the targets missed to a string to be displayed
 	FString missText = "Targets missed:";
-	DrawText(hitText, FColor::White, 1050.f, 50.f, arial, .25f, false); //Displaying targets hit and targets missed
-	DrawText(hitValue, FColor::White, 1175.f, 50.f, arial, .25f, false);
-	DrawText(missText, FColor::White, 1000.f, 80.f, arial, .25f, false);
-	DrawText(missValue, FColor::White, 1175.f, 80.f, arial, .25f, false);
+	DrawText(hitText, FColor::White, 1030.f, 50.f, arial, .25f, false); //Displaying targets hit and targets missed
+	DrawText(hitValue, FColor::White, 1155.f, 50.f, arial, .25f, false);
+	DrawText(missText, FColor::White, 980.f, 80.f, arial, .25f, false);
+	DrawText(missValue, FColor::White, 1155.f, 80.f, arial, .25f, false);
 }
 
 void AFPSHUD::Tick(float DeltaTime)

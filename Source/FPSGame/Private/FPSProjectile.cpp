@@ -39,7 +39,7 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 {
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics()) //If we hit an actor that is not itself and is simulating physics
 	{
-		//OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		//OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation()); //Adds impulse to the object that is hit
 
 		FVector Scale = OtherComp->GetComponentScale(); //Set the actors scale to 10%
 		Scale *= 0.1f;

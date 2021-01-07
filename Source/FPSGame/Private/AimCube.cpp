@@ -4,6 +4,7 @@
 #include "Classes/Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
+#include "Sound/SoundBase.h"
 
 TArray<AActor*> aimCubes; //Global array for all of the aim cubes
 extern int numberOfTargets;
@@ -14,17 +15,22 @@ FTimerHandle CourseTimer;
 int score = 0;
 int targetsHit = 0;
 extern int targetsMiss;
+USoundBase* hitSound;
+extern bool soundOn;
 
-// Sets default values
+//Sets default values
 AAimCube::AAimCube()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMeshComponent"); //Creating static mesh component for the cubes
 	StaticMesh->OnComponentHit.AddDynamic(this, &AAimCube::OnHit);
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> bellSound(TEXT("/Game/Audio/bellsound")); //Set the hit sound audio
+	hitSound = bellSound.Object;
 }
 
-// Called when the game starts or when spawned
+//Called when the game starts
 void AAimCube::BeginPlay()
 {
 	Super::BeginPlay();
@@ -38,6 +44,11 @@ void AAimCube::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiv
 {
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && (canShoot)) //If we hit an actor that is not itself
 	{
+		if (soundOn) //If sound is on play sound on hit
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, hitSound, GetActorLocation(), .25f);
+		}
+		
 		hasStarted = true;
 		score = score + 3;
 		targetsHit++;
@@ -134,7 +145,7 @@ void AAimCube::Target4(int x, int y, int z)
 	aimCubes[z]->SetActorScale3D(FVector(1.f, 1.f, 1.f));
 }
 
-// Called every frame
+//Called every frame
 void AAimCube::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

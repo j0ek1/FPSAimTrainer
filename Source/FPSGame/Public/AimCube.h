@@ -33,7 +33,7 @@ public:
 	void Target4(int x, int y, int z);
 
 protected:
-	// Called when the game starts or when spawned
+	//Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category = "Components") //Creating static mesh component for the cubes
@@ -41,7 +41,7 @@ protected:
 
 public:	
 
-	// Called every frame
+	//Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 };
